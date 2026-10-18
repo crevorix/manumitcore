@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ── Theme Tokens (Tailwind v4 @theme) ───────────────────────── */
+@theme {
+  /* ── Brand Colors ── */
+  --color-emerald:        #00A86B;
+  --color-emerald-dark:   #007A4D;
+  --color-emerald-light:  #33BC85;
+
+  --color-gold:           #A6842E;
+  --color-gold-dark:      #7A5F1F;
+  --color-gold-light:     #D9C266;
+  --color-gold-metallic:  #CFB53B;
+
+  --color-ruby:           #9B111E;
+  --color-ruby-dark:      #7A0D17;
+  --color-ruby-light:     #C41527;
+
+  --color-jade:           #00A86B;
+
+  /* ── Foundation Palette (light, warm — non-token pages) ── */
+  --color-forest:       #1B7A32;
+  --color-forest-dark:  #125C26;
+  --color-forest-light: #3FA55A;
+  --color-ivory:        #FFFFF0;
+  --color-ink:          #16241A;
+
+  /* ── Core Palette (dark, tech — token / presale pages) ── */
+  --color-cyan:         #00C2D1;
+
+  /* ── Coin Palette ── */
+  --color-coin-black:      #0D0D0D;
+  --color-coin-near-black: #1A1A1A;
+  --color-coin-surface:    #242424;
+  --color-coin-border:     #333333;
+
+  /* ── Neutrals ── */
+  --color-cream:    #F8F5EE;
+  --color-off-white:#F2EFE9;
+  --color-charcoal: #1C1C1C;
+
+  /* ── Typography ── */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans:    "Inter", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
+
+  /* ── Shadows ── */
+  --shadow-gold:      0 0 20px rgba(166, 132, 46, 0.3);
+  --shadow-gold-lg:   0 0 40px rgba(166, 132, 46, 0.4);
+  --shadow-emerald:   0 0 20px rgba(0, 168, 107, 0.3);
+  --shadow-forest:    0 0 20px rgba(27, 122, 50, 0.25);
+  --shadow-forest-lg: 0 0 36px rgba(27, 122, 50, 0.35);
+  --shadow-cyan:      0 0 20px rgba(0, 194, 209, 0.3);
+  --shadow-glass:     0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover:0 20px 60px rgba(0, 0, 0, 0.4);
+
+  /* ── Border Radius ── */
+  --radius-4xl: 2rem;
+
+  /* ── Animations ── */
+  --animate-float:      float 6s ease-in-out infinite;
+  --animate-pulse-gold: pulseGold 2s ease-in-out infinite;
+  --animate-spin-slow:  spin 20s linear infinite;
+
+  /* ── Keyframes ── */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-12px); }
+  }
+
+  @keyframes pulseGold {
+    0%, 100% { box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+    50%       { box-shadow: 0 0 40px rgba(212,175,55,0.6); }
+  }
+}
+
+/* ── Base Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-ivory);
+  color: var(--color-ink);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ── Custom Utilities ─────────────────────────────────────────── */
+
+/* Gold gradient text — accent use only (Foundation), not for hero headlines */
+@utility text-gold-gradient {
+  background: linear-gradient(135deg, #7A5F1F 0%, #A6842E 35%, #CFB53B 65%, #A6842E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-emerald-gradient {
+  background: linear-gradient(135deg, #007A4D 0%, #00A86B 50%, #33BC85 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Forest gradient text — Foundation primary headline treatment */
+@utility text-forest-gradient {
+  background: linear-gradient(135deg, #125C26 0%, #1B7A32 45%, #3FA55A 80%, #1B7A32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Background gradients */
+@utility bg-gold-gradient {
+  background-image: linear-gradient(135deg, #7A5F1F 0%, #A6842E 35%, #CFB53B 65%, #A6842E 100%);
+}
+
+@utility bg-emerald-gradient {
+  background-image: linear-gradient(135deg, #007A4D 0%, #00A86B 50%, #33BC85 100%);
+}
+
+@utility bg-forest-gradient {
+  background-image: linear-gradient(135deg, #1B7A32 0%, #3FA55A 45%, #125C26 100%);
+}
+
+@utility bg-hero-gradient {
+  background: linear-gradient(160deg, #FFFFF0 0%, #F3F7EC 45%, #FFFFF0 100%);
+}
+
+@utility bg-dark-gradient {
+  background: linear-gradient(180deg, #0D0D0D 0%, #1A1A1A 100%);
+}
+
+@utility bg-card-gradient {
+  background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+}
+
+/* Glassmorphism */
+@utility glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+@utility glass-dark {
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+/* Light glassmorphism — Foundation surfaces on ivory */
+@utility glass-light {
+  background: rgba(22, 36, 26, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(27, 122, 50, 0.15);
+  box-shadow: 0 8px 24px rgba(22, 36, 26, 0.08);
+}
+
+/* Shadow utilities */
+@utility shadow-gold {
+  box-shadow: 0 0 20px rgba(166, 132, 46, 0.3);
+}
+
+@utility shadow-gold-lg {
+  box-shadow: 0 0 40px rgba(166, 132, 46, 0.4);
+}
+
+@utility shadow-emerald {
+  box-shadow: 0 0 20px rgba(0, 168, 107, 0.3);
+}
+
+@utility shadow-forest {
+  box-shadow: 0 0 20px rgba(27, 122, 50, 0.25);
+}
+
+@utility shadow-forest-lg {
+  box-shadow: 0 0 36px rgba(27, 122, 50, 0.35);
+}
+
+@utility shadow-cyan {
+  box-shadow: 0 0 20px rgba(0, 194, 209, 0.3);
+}
+
+@utility shadow-glass {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@utility shadow-card-hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Section divider */
+@utility section-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #A6842E, #CFB53B, #A6842E);
+  margin: 0 auto 1.5rem;
+  border-radius: 2px;
+}
+
+/* Section divider — Core variant (emerald) */
+@utility section-divider-core {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #00A86B, #33BC85, #00A86B);
+  margin: 0 auto 1.5rem;
+  border-radius: 2px;
+}
+
+/* Container */
+@utility container-wide {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-wide {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Animate utilities */
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility animate-pulse-gold {
+  animation: pulseGold 2s ease-in-out infinite;
+}
+
+@utility animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+/* ── Global Keyframes ─────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 20px rgba(207,181,59,0.3); }
+  50%       { box-shadow: 0 0 40px rgba(207,181,59,0.6); }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+::-webkit-scrollbar-thumb { background: #00A86B; border-radius: 3px; }
+
+/* ── Focus ────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #00A86B;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Selection ────────────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 168, 107, 0.25);
+}
